@@ -23,6 +23,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.1",
+    "es6-promise": "^4.2.6",
     "express": "^4.17.1",
     "express-session": "^1.16.1",
     "fetch": "^1.1.0",
