@@ -25,11 +25,13 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-const authController  = require('./controllers/authController');
+const authController     = require('./controllers/authController');
+const categoryController = require('./controllers/categoryController');
 // Fill in other controllers
 
 //here too!
 app.use('/auth', authController);
+app.use('/category', categoryController);
 
 app.listen(process.env.PORT || 9000, () => {
 	console.log('Listening on port' + process.env.PORT);

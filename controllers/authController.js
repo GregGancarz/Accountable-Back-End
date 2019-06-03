@@ -71,7 +71,8 @@ router.get('/logout', ((req, res) => {
     	} else {
     		console.log("--Logout successful--");
     		res.json({
-    			status: 200
+    			status: 200,
+    			data: 'Logout successful'
     		})
 		}	
 	});
