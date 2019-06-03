@@ -62,6 +62,7 @@ router.post('/login', async (req, res, next) => {
   	}
 });
 
+
 router.get('/logout', ((req, res) => {
 	console.log("--Logout initiated--");
 	req.session.destroy((err) => {
@@ -75,7 +76,5 @@ router.get('/logout', ((req, res) => {
 		}	
 	});
 }));
-
-
 
 module.exports = router;
