@@ -2,6 +2,7 @@ const express	 = require('express');
 const router     = express.Router();
 const User		 = require('../models/user');
 const bcrypt 	 = require('bcrypt');
+const Category 	 = require('../models/category')
 
 // email: fakestEmailEver@dne.com
 // password: password1
@@ -11,7 +12,8 @@ const bcrypt 	 = require('bcrypt');
 
 
 
-//////////// REGISTER / LOGIN / LOGOUT ///////////
+
+//////////// REGISTER / DELETE /////// ///////////
 //////////////////////////////////////////////////
 
 router.post('/register', async (req, res, next) => {
@@ -22,13 +24,14 @@ router.post('/register', async (req, res, next) => {
 	userDbEntry.email = req.body.email;
 	userDbEntry.password = passwordHash
 	try {
+		console.log(">>>  IN THE TRY PATH  <<<");
 		const foundUser = await User.findOne({'email': req.body.email})
 		if (foundUser) {	
 			console.log("ERROR: The given email address is already attached to another account");
 			res.json({
 				status: 404,
 				data: 'ERROR: The given email address is already attached to another account'
-			});
+			})
 		} else {
 			const createdAccount = await User.create(userDbEntry);
 			req.session.logged = true;
@@ -36,13 +39,53 @@ router.post('/register', async (req, res, next) => {
 			res.json({
 				status: 200,
 				data: createdAccount
-			});
-		};
+			})
+		}
 	} catch(err) {
+		console.log(">>>  IN THE CATCH PATH  <<<");
 		next(err);
-	};
+		res.json({
+			status: 404,
+			data: err,
+		})
+	}
 });
 
+
+router.delete('/:id', async (req, res, next) => {
+	console.log("--Account deletion has been initiated--");
+	try {
+		const deletedUser = await User.findByIdAndDelete(req.params.id);
+		const deletedUsersCats = Category.deleteMany({
+			_id: {
+        		$in: deletedUser.categories
+      		}
+		})
+		req.session.destroy();
+	} catch(err) {
+		next(err);
+		res.json({
+			status: 404,
+			data: err,
+		})
+	}
+})
+
+
+
+//////////////////////////////////////////////////////
+//////////// REGISTER / DELETE /////////// ABOVE /////
+
+
+
+
+
+
+
+
+
+////////////  LOG IN/OUT  //////////////////////////////
+////////////////////////////////////////////////////////
 
 router.post('/login', async (req, res, next) => {
 	console.log('--Login has been initiated--');
@@ -70,6 +113,10 @@ router.post('/login', async (req, res, next) => {
 		}
   	} catch (err) {
 		next(err);
+		res.json({
+			status: 404,
+			data: err,
+		})
   	}
 });
 
@@ -90,7 +137,7 @@ router.get('/logout', ((req, res) => {
 }));
 
 //////////////////////////////////////////////////////
-//////////// REGISTER / LOGIN / LOGOUT /// ABOVE /////
+////////////   LOG IN/OUT   ////////////// ABOVE /////
 
 
 

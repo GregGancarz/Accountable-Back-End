@@ -35,7 +35,24 @@ router.get('/:id', async (req, res, next) => {
 	} catch(err) {
 		next(err);
 	}
-})
+});
+
+router.put('/:id', async (req, res, next) => {
+	console.log("--Category update has been initiated--");
+	try {
+		const updatedCat = await Category.findByIdAndUpdate(req.params.id, req.body, {new: true});
+		res.json({
+			status: 200,
+			data: updatedCat,
+		});
+	} catch(err) {
+		next(err);
+		res.json({
+			status: 404,
+			data: err
+		});
+	}
+});
 
 module.exports = router;
 
