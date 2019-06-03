@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const Category = require('./category')
+const mongoose 	= require('mongoose');
+const Category 	= require('./category')
+const Expense 	= require('./expense')
 
 const userSchema = new mongoose.Schema({
 	email: {
@@ -13,6 +14,10 @@ const userSchema = new mongoose.Schema({
 	categories: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Category',
+	}],
+	expenses: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Expense',
 	}]
 });
 

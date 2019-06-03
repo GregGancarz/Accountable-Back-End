@@ -24,6 +24,19 @@ router.post('/:id', async (req, res, next) => {
 	};
 });
 
+router.get('/:id', async (req, res, next) => {
+	console.log("--Category retrieval has been initiated--");
+	try {
+		foundUser = await User.findById({_id: req.params.id});
+		res.json({
+			status:200,
+			data: foundUser.categories,
+		});
+	} catch(err) {
+		next(err);
+	}
+})
+
 module.exports = router;
 
 

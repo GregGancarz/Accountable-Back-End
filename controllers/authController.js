@@ -7,7 +7,12 @@ const bcrypt 	 = require('bcrypt');
 // password: password1
 // _id: 5cf56a9fda6f2733f4e15b2b
 
+
+
+
+
 //////////// REGISTER / LOGIN / LOGOUT ///////////
+//////////////////////////////////////////////////
 
 router.post('/register', async (req, res, next) => {
 	console.log('--Registration has been initiated--');
@@ -84,11 +89,15 @@ router.get('/logout', ((req, res) => {
 	});
 }));
 
+//////////////////////////////////////////////////////
 //////////// REGISTER / LOGIN / LOGOUT /// ABOVE /////
 
 
 
+
+
 /////////// PROFILE PAGES ///////////////////////
+/////////////////////////////////////////////////
 
 router.get('/:id', async (req, res, next) => {
 	try {
@@ -102,6 +111,7 @@ router.get('/:id', async (req, res, next) => {
 	};
 });
 
+///////////////////////////////////////////////
 /////////// PROFILE PAGES /// ABOVE ///////////
 
 
