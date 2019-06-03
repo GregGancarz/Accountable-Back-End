@@ -3,13 +3,20 @@ const router = express.Router();
 const User = require('../models/user');
 const Category = require('../models/category');
 
+
+
 router.post('/:id', async (req, res, next) => {
 	try {
-		//foundUser = await User.findById({_id: req.params.id});
+		foundUser = await User.findById({_id: req.params.id});
 		console.log(req.body, "<<<< req.body");
 		const catName = req.body
 		const createdCat = await Category.create(req.body);
-		//foundUser.categories.push(createdCat);
+		console.log(createdCat, "<<< The createdCat");
+		console.log(foundUser.categories, "<<<< foundUser.categories BEFORE push");
+		foundUser.categories.push(createdCat);
+		foundUser.save();
+		console.log(foundUser.categories, "<<<< foundUser.categories AFTER push");
+
 		res.json({
 			status: 200,
 			data: createdCat,
