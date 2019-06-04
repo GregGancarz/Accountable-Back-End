@@ -7,10 +7,12 @@ const Category = require('../models/category');
 // password: password1
 // _id: 5cf56a9fda6f2733f4e15b2b
 
+////////////// CATEGORY CONTROLLER COMPLETE FOR BASIC CRUD ////////////////
+
 router.post('/:id', async (req, res, next) => {
 	console.log("--Category creation has been initiated---");
 	try {
-		foundUser = await User.findById({_id: req.params.id});
+		const foundUser = await User.findById({_id: req.params.id});
 		const catName = req.body
 		const createdCat = await Category.create(req.body);
 		foundUser.categories.push(createdCat);
@@ -55,5 +57,3 @@ router.put('/:id', async (req, res, next) => {
 });
 
 module.exports = router;
-
-
