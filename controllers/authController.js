@@ -49,11 +49,14 @@ router.post('/register', async (req, res, next) => {
 		next(err);
 		res.json({
 			status: 404,
-			data: err,
+			 
 		})
 	}
 });
 
+// "email": "user2delete@mail.com",
+//	"password": "pword1"
+// 5cf6969790150c4947c1a338
 
 router.delete('/:id', async (req, res, next) => {
 	console.log("--Account deletion has been initiated--");
@@ -65,11 +68,14 @@ router.delete('/:id', async (req, res, next) => {
       		}
 		})
 		req.session.destroy();
+		res.json({
+			status: 200,
+			data: 'Account deletion was successful'
+		})
 	} catch(err) {
 		next(err);
 		res.json({
 			status: 404,
-			data: err,
 		})
 	}
 })
@@ -116,7 +122,7 @@ router.post('/login', async (req, res, next) => {
 		next(err);
 		res.json({
 			status: 404,
-			data: err,
+			 
 		})
   	}
 });

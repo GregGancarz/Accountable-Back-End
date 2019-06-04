@@ -1,6 +1,3 @@
--solve USER REGISTRATION error
--solve vulnerability threats
--get EXPENSE POST route to work and find out why it's not even in the post function
 
 THEN....
 
