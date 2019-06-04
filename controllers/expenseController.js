@@ -36,6 +36,24 @@ router.post('/:id', async (req, res, next) => {
 	}
 })
 
+router.get('/:id', async (req, res, next) => {
+	console.log("--Category list retrieval has been initiated--");
+	try {
+		foundUser = await User.findById({_id: req.params.id});
+		res.json({
+			status:200,
+			data: foundUser.expenses,
+		});
+	} catch(err) {
+		next(err);
+		res.json({
+			status: 404,
+			data: 'ERROR'
+		})
+	}
+});
+
+
 
 
 
