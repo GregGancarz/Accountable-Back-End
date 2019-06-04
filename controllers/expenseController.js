@@ -37,6 +37,8 @@ router.post('/user/:id', async (req, res, next) => {
 
 
 
+
+
 router.get('/user/:id', async (req, res, next) => {
 	console.log("--Expense list retrieval has been initiated--");
 	try {
@@ -49,6 +51,9 @@ router.get('/user/:id', async (req, res, next) => {
 		next(err);
 	}
 });
+
+
+
 
 router.get('/expense/:id', async (req, res, next) => {
 	console.log("--Lone expense retrieval has been initiated--");
@@ -63,6 +68,9 @@ router.get('/expense/:id', async (req, res, next) => {
 	}
 })
 
+
+
+
 router.put('/expense/:id', async (req, res, next) => {
 	console.log("--Expense update has been initiated--");
 	try {
@@ -76,6 +84,9 @@ router.put('/expense/:id', async (req, res, next) => {
 		next(err);
 	}
 })
+
+
+
 
 router.delete('/user/:userid/expense/:expenseid', async (req, res, next) => {
 	console.log("--Expense deletion has been initiated--");
@@ -100,8 +111,6 @@ router.delete('/user/:userid/expense/:expenseid', async (req, res, next) => {
 		next(err);
 	}
 })
-
-
 
 
 

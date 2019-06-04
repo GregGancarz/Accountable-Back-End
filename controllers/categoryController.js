@@ -7,6 +7,7 @@ const Category = require('../models/category');
 
 ////////////// CATEGORY CONTROLLER COMPLETE FOR BASIC CRUD ////////////////
 
+// CREATE new cat
 router.post('/user/:id', async (req, res, next) => {
 	console.log("--Category creation has been initiated---");
 	try {
@@ -14,7 +15,7 @@ router.post('/user/:id', async (req, res, next) => {
 		const catName = req.body
 		const createdCat = await Category.create(req.body);
 		foundUser.categories.push(createdCat);
-		foundUser.save();
+		await foundUser.save();
 		res.json({
 			status: 200,
 			data: createdCat,
@@ -24,6 +25,10 @@ router.post('/user/:id', async (req, res, next) => {
 	};
 });
 
+
+
+
+// GET user's cat LIST
 router.get('/user/:id', async (req, res, next) => {
 	console.log("--User's category retrieval has been initiated--");
 	try {
@@ -37,6 +42,10 @@ router.get('/user/:id', async (req, res, next) => {
 	}
 });
 
+
+
+
+// GET LONE cat based off id
 router.get('/cat/:id', async (req, res, next) => {
 	console.log("--Lone category retrieval has been initiated--");
 	try {
@@ -50,6 +59,7 @@ router.get('/cat/:id', async (req, res, next) => {
 	}
 })
 
+// UPDATE cat
 router.put('/cat/:id', async (req, res, next) => {
 	console.log("--Category update has been initiated--");
 	try {

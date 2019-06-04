@@ -1,3 +1,8 @@
 email: fakestEmailEver@dne.com
 password: password1
 _id: 5cf56a9fda6f2733f4e15b2b
+
+
+email: june4@june.com
+pw: 0604
+_id: 5cf6d9cfe36ea64c623235eb
