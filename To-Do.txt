@@ -1,6 +1,3 @@
 
-THEN....
-
--get USER DELETION working
 -get EXPENSE EDIT working
 -get EXPENSE DELETION working

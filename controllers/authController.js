@@ -54,9 +54,6 @@ router.post('/register', async (req, res, next) => {
 	}
 });
 
-// "email": "user2delete@mail.com",
-//	"password": "pword1"
-// 5cf6969790150c4947c1a338
 
 router.delete('/:id', async (req, res, next) => {
 	console.log("--Account deletion has been initiated--");

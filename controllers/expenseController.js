@@ -2,27 +2,25 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user')
 const Expense = require('../models/expense')
-const category = require('../models/category')
+const Category = require('../models/category')
 
 router.post('/:id', async (req, res, next) => {
 	console.log("--Expense creation had been initiated---");
 	try {
 		const expenseDbEntry = {};
-		const expenseDbEntry.amount = req.body.amount;
-		console.log(req.body.amount, "<<< req.body.amount <<<");
+		expenseDbEntry.amount = req.body.amount;
 
 		const foundCat = await Category.find({ name: req.body.category});
-		console.log(foundCat, "<<< foundCat <<<");
+		expenseDbEntry.category = foundCat[0];
 
-		const expenseDbEntry.category = foundCat;
-		const expenseDbEntry.date = req.body.date;
-		console.log(req.body.date, "<<< DATE <<<<");
+		expenseDbEntry.date = req.body.date;
+
+		console.log(expenseDbEntry, "<<<<< expenseDbEntry after all 3 fields have been defined <<<<<");
 
 		const createdExpense = await Expense.create(expenseDbEntry);
 		console.log(createdExpense, "<<<< createdExpense");
 
 		const foundUser = await User.findById({_id: req.params.id});
-		console.log(foundUser, "<=== the foundUser");
 
 		foundUser.expenses.push(createdExpense);
 		foundUser.save();
@@ -30,11 +28,10 @@ router.post('/:id', async (req, res, next) => {
 			status: 200,
 			data: createdExpense,
 		});
-	} catch {
+	} catch(err) {
 		next(err);
 		res.json({
 			status: 404,
-			data: err,
 		})
 	}
 })
