@@ -14,7 +14,7 @@ app.use(session({
 	saveUnititalized: false,
 }));
 
-// app.use(bodyParser.urlencoded({extended: false}));
+// app.use(bodyParser.urlencoded({extended: false})); // to enable easy use of Postman for development
 app.use(bodyParser.json());
 
 const corsOptions = {

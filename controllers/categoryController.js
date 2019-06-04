@@ -3,13 +3,11 @@ const router = express.Router();
 const User = require('../models/user');
 const Category = require('../models/category');
 
-// email: fakestEmailEver@dne.com
-// password: password1
-// _id: 5cf56a9fda6f2733f4e15b2b
+
 
 ////////////// CATEGORY CONTROLLER COMPLETE FOR BASIC CRUD ////////////////
 
-router.post('/user:id', async (req, res, next) => {
+router.post('/user/:id', async (req, res, next) => {
 	console.log("--Category creation has been initiated---");
 	try {
 		const foundUser = await User.findById({_id: req.params.id});
@@ -26,7 +24,7 @@ router.post('/user:id', async (req, res, next) => {
 	};
 });
 
-router.get('/user:id', async (req, res, next) => {
+router.get('/user/:id', async (req, res, next) => {
 	console.log("--User's category retrieval has been initiated--");
 	try {
 		foundUser = await User.findById({_id: req.params.id});
@@ -39,7 +37,7 @@ router.get('/user:id', async (req, res, next) => {
 	}
 });
 
-router.get('/cat:id', async (req, res, next) => {
+router.get('/cat/:id', async (req, res, next) => {
 	console.log("--Lone category retrieval has been initiated--");
 	try {
 		foundCat = await Category.findById({_id: req.params.id});
@@ -52,7 +50,7 @@ router.get('/cat:id', async (req, res, next) => {
 	}
 })
 
-router.put('/cat:id', async (req, res, next) => {
+router.put('/cat/:id', async (req, res, next) => {
 	console.log("--Category update has been initiated--");
 	try {
 		const updatedCat = await Category.findByIdAndUpdate(req.params.id, req.body, {new: true});
@@ -63,9 +61,6 @@ router.put('/cat:id', async (req, res, next) => {
 		});
 	} catch(err) {
 		next(err);
-		res.json({
-			status: 404,
-		});
 	}
 });
 

@@ -4,10 +4,6 @@ const User		 = require('../models/user');
 const bcrypt 	 = require('bcrypt');
 const Category 	 = require('../models/category')
 
-// email: fakestEmailEver@dne.com
-// password: password1
-// _id: 5cf56a9fda6f2733f4e15b2b
-
 
 
 
@@ -27,7 +23,6 @@ router.post('/register', async (req, res, next) => {
 	userDbEntry.email = req.body.email;
 	userDbEntry.password = passwordHash
 	try {
-		console.log(">>>  IN THE TRY PATH  <<<");
 		const foundUser = await User.findOne({'email': req.body.email})
 		if (foundUser) {	
 			console.log("ERROR: The given email address is already attached to another account");
@@ -45,17 +40,12 @@ router.post('/register', async (req, res, next) => {
 			})
 		}
 	} catch(err) {
-		console.log(">>>  IN THE CATCH PATH  <<<");
-		next(err);
-		res.json({
-			status: 404,
-			 
-		})
+		next(err);	 
 	}
 });
 
 
-router.delete('/user:id', async (req, res, next) => {
+router.delete('/user/:id', async (req, res, next) => {
 	console.log("--Account deletion has been initiated--");
 	try {
 		const deletedUser = await User.findByIdAndDelete(req.params.id);
@@ -71,9 +61,6 @@ router.delete('/user:id', async (req, res, next) => {
 		})
 	} catch(err) {
 		next(err);
-		res.json({
-			status: 404,
-		})
 	}
 })
 
@@ -153,7 +140,7 @@ router.get('/logout', ((req, res) => {
 //////////////   PROFILE PAGES   ///////////////////////
 ////////////////////////////////////////////////////////
 
-router.get('/user:id', async (req, res, next) => {
+router.get('/user/:id', async (req, res, next) => {
 	try {
 		const foundUser = await User.findById(req.params.id);
 		res.json({
