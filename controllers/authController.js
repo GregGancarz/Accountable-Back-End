@@ -55,7 +55,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/user:id', async (req, res, next) => {
 	console.log("--Account deletion has been initiated--");
 	try {
 		const deletedUser = await User.findByIdAndDelete(req.params.id);
@@ -153,7 +153,7 @@ router.get('/logout', ((req, res) => {
 //////////////   PROFILE PAGES   ///////////////////////
 ////////////////////////////////////////////////////////
 
-router.get('/:id', async (req, res, next) => {
+router.get('/user:id', async (req, res, next) => {
 	try {
 		const foundUser = await User.findById(req.params.id);
 		res.json({

@@ -4,7 +4,7 @@ const User = require('../models/user')
 const Expense = require('../models/expense')
 const Category = require('../models/category')
 
-router.post('/:id', async (req, res, next) => {
+router.post('/user:id', async (req, res, next) => {
 	console.log("--Expense creation had been initiated---");
 	try {
 		const expenseDbEntry = {};
@@ -48,12 +48,26 @@ router.get('/:id', async (req, res, next) => {
 		next(err);
 		res.json({
 			status: 404,
-			data: 'ERROR'
 		})
 	}
 });
 
-
+router.put('/expense:id', async (req, res, next) => {
+	console.log("--Expense update has been initiated--");
+	try {
+		const updatedExpense = await Expense.findByIdAndUpdate(req.params.id, req.body, {new: true});
+		console.log(req.body, "<<== req.body");
+		res.json({
+			status: 200,
+			data: updatedExpense,
+		});
+	} catch(err) {
+		next(err);
+		res.json({
+			status: 404,
+		})
+	}
+})
 
 
 

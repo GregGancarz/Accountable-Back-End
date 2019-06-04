@@ -9,7 +9,7 @@ const Category = require('../models/category');
 
 ////////////// CATEGORY CONTROLLER COMPLETE FOR BASIC CRUD ////////////////
 
-router.post('/:id', async (req, res, next) => {
+router.post('/user:id', async (req, res, next) => {
 	console.log("--Category creation has been initiated---");
 	try {
 		const foundUser = await User.findById({_id: req.params.id});
@@ -26,8 +26,8 @@ router.post('/:id', async (req, res, next) => {
 	};
 });
 
-router.get('/:id', async (req, res, next) => {
-	console.log("--Category retrieval has been initiated--");
+router.get('/user:id', async (req, res, next) => {
+	console.log("--User's category retrieval has been initiated--");
 	try {
 		foundUser = await User.findById({_id: req.params.id});
 		res.json({
@@ -39,10 +39,24 @@ router.get('/:id', async (req, res, next) => {
 	}
 });
 
-router.put('/:id', async (req, res, next) => {
+router.get('/cat:id', async (req, res, next) => {
+	console.log("--Lone category retrieval has been initiated--");
+	try {
+		foundCat = await Category.findById({_id: req.params.id});
+		res.json({
+			status: 200,
+			data: foundCat,
+		});
+	} catch {
+		next(err);
+	}
+})
+
+router.put('/cat:id', async (req, res, next) => {
 	console.log("--Category update has been initiated--");
 	try {
 		const updatedCat = await Category.findByIdAndUpdate(req.params.id, req.body, {new: true});
+		console.log(req.boy, "<-- req.body");
 		res.json({
 			status: 200,
 			data: updatedCat,
@@ -51,7 +65,6 @@ router.put('/:id', async (req, res, next) => {
 		next(err);
 		res.json({
 			status: 404,
-			data: err
 		});
 	}
 });
