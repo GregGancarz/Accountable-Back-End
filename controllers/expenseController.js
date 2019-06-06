@@ -102,24 +102,13 @@ router.put('/expense/:id', async (req, res, next) => {
 
 
 
-router.delete('/user/:userid/expense/:expenseid', async (req, res, next) => {
+router.delete('/expense/:id', async (req, res, next) => {
 	console.log("--Expense deletion has been initiated--");
 	try {
-		const foundUser = await User.findById({_id: req.params.userid});
-		const deletedExpense = await Expense.findByIdAndDelete(req.params.expenseid);
-
-		function isNotDeleted(expense) {
-			console.log(expense, "<<< expense ");
-			console.log(" ");
-			console.log(deletedExpense, "<<< deletedExpense");
-		  	return expense != deletedExpense;
-		}
-		const filteredExpenseList = foundUser.expenses.filter(isNotDeleted);
-
-
+		const deletedExpense = await Expense.findByIdAndRemove({_id: req.params.id});
 		res.json({
 			status: 200,
-			data: deletedExpense, filteredExpenseList
+			data: deletedExpense
 		})
 	} catch(err) {
 		next(err);
