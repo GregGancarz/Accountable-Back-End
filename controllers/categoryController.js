@@ -13,8 +13,13 @@ router.post('/user/:id', async (req, res, next) => {
 	try {
 		const foundUser = await User.findById({_id: req.params.id});
 		const catName = req.body
+		console.log("we are creating a category, here is req.body");
+		console.log(req.body);
 		const createdCat = await Category.create(req.body);
-		foundUser.categories.push(createdCat);
+		console.log(createdCat, "<<<< The newly createdCat");
+		for(let i = 0; i < createdCat.length; i++ ) {
+			foundUser.categories.push(createdCat[i])
+		};
 		await foundUser.save();
 		res.json({
 			status: 200,
@@ -32,11 +37,12 @@ router.post('/user/:id', async (req, res, next) => {
 router.get('/user/:id', async (req, res, next) => {
 	console.log("--User's category retrieval has been initiated--");
 	try {
-		foundUser = await User.findById({_id: req.params.id});
+		foundUser = await User.findById({_id: req.params.id}).populate('categories').populate('expenses');
 		res.json({
 			status:200,
 			data: foundUser.categories,
 		});
+		console.log(foundUser.categories, "<<<<< foundUser's cats");
 	} catch(err) {
 		next(err);
 	}

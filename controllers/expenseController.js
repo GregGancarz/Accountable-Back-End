@@ -5,14 +5,14 @@ const Expense = require('../models/expense')
 const Category = require('../models/category')
 
 
-
+/// NEW expense ///
 router.post('/user/:id', async (req, res, next) => {
 	console.log("--Expense creation had been initiated---");
 	try {
 		const expenseDbEntry = {};
 		expenseDbEntry.amount = req.body.amount;
 
-		const foundCat = await Category.find({ name: req.body.category});
+		const foundCat = await Category.find({name: req.body.category.name});
 		expenseDbEntry.category = foundCat[0];
 
 		expenseDbEntry.date = req.body.date;
@@ -38,11 +38,25 @@ router.post('/user/:id', async (req, res, next) => {
 
 
 
-
+// GET USER's expense LIST
 router.get('/user/:id', async (req, res, next) => {
 	console.log("--Expense list retrieval has been initiated--");
 	try {
-		foundUser = await User.findById({_id: req.params.id});
+		foundUser = await User.findById({_id: req.params.id})
+			.populate({
+				path: 'expenses',
+				populate: {
+					path: 'category'
+				}
+			})
+
+
+
+
+
+
+		console.log("\n\nhere is foundUser")
+		console.log(foundUser);
 		res.json({
 			status:200,
 			data: foundUser.expenses,
