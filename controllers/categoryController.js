@@ -42,7 +42,8 @@ router.get('/user/:id', async (req, res, next) => {
 			status:200,
 			data: foundUser.categories,
 		});
-		console.log(foundUser.categories, "<<<<< foundUser's cats");
+		console.log(foundUser.categories)
+		console.log("^^^  foundUser's cats  ^^^");
 	} catch(err) {
 		next(err);
 	}
