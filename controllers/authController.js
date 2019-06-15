@@ -3,6 +3,7 @@ const router     = express.Router();
 const User		 = require('../models/user');
 const bcrypt 	 = require('bcrypt');
 const Category 	 = require('../models/category')
+const nodemailer = require('nodemailer')
 
 
 
@@ -28,10 +29,24 @@ router.post('/register', async (req, res, next) => {
 			console.log("ERROR: The given email address is already attached to another account");
 			res.json({
 				status: 404,
-				data: 'ERROR: The given email address is already attached to another account'
+				data: 'ERROR: The given email address is already attached to another account',
+				message: 'That email is already associated with an account.'
 			})
 		} else {
 			const createdAccount = await User.create(userDbEntry);
+			let transporter = await nodemailer.createTransport({
+    			service: 'yandex',
+      			auth: {
+        			user: 'accountableauto@yandex.com',
+        			pass: '@ccountable0619'
+      			}
+    		});
+    		let info = await transporter.sendMail({
+    		  	from: 'accountableauto@yandex.com',
+    		  	to: req.body.email,
+    		  	subject: 'Welcome to Accountable!',
+    		  	text: "Generic welcome message test!"
+    		});
 			req.session.logged = true;
 			req.session.email = req.body.email;
 			res.json({
@@ -91,22 +106,26 @@ router.post('/login', async (req, res, next) => {
 					data: foundUser
 				})
 		  	} else {
+		  		console.log("--Password & email did not match--");
 		  		res.json({
 		  			status: 404,
-		  			data: 'Your username or password is incorrect'
+		  			data: 'Your username or password is incorrect',
+		  			message: 'Your username or password is incorrect'
 		  		})
 		  	}
 		} else {
+			console.log("--No account found with that email address--");
 		  	res.json({
 		  			status: 404,
-		  			data: 'Your username or password is incorrect'
+		  			data: 'Your username or password is incorrect',
+		  			message: 'Your username or password is incorrect'
+
 		  	})
 		}
   	} catch (err) {
 		next(err);
 		res.json({
 			status: 404,
-			 
 		})
   	}
 });

@@ -29,6 +29,8 @@
     "fetch": "^1.1.0",
     "isomorphic": "0.0.11",
     "isomorphic-fetch": "^2.2.1",
-    "mongoose": "^5.5.12"
+    "mongoose": "^5.5.12",
+    "nodemailer": "^6.2.1",
+    "proptypes": "^1.1.0"
   }
 }

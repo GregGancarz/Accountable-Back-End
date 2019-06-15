@@ -84,7 +84,7 @@ router.get('/expense/:id', async (req, res, next) => {
 
 
 
-
+/// update
 router.put('/expense/:id', async (req, res, next) => {
 	console.log("--Expense update has been initiated--");
 	try {
