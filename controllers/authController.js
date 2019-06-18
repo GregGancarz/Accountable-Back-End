@@ -45,7 +45,7 @@ router.post('/register', async (req, res, next) => {
     		  	from: 'accountableauto@yandex.com',
     		  	to: req.body.email,
     		  	subject: 'Welcome to Accountable!',
-    		  	text: "Generic welcome message test!"
+    		  	text: "Hello! \nThanks for registering with Accountable! Start tracking those expenses to get a better idea of your spending habits and finances!"
     		});
 			req.session.logged = true;
 			req.session.email = req.body.email;
