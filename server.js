@@ -32,6 +32,7 @@ const expenseController = require('./controllers/expenseController');
 app.use('/auth', authController);
 app.use('/category', categoryController);
 app.use('/expense', expenseController);
+app.use('/goal', goalController);
 
 app.listen(process.env.PORT || 9000, () => {
 	console.log('Listening on port' + process.env.PORT);
