@@ -7,14 +7,11 @@ router.post('/user/:id', async (req, res, next) => {
 	console.log("--Goal creation had been initiated---");
 	try {
 		const goalDbEntry = {};
-		goalDbEntry.amount = req.body.amount;
-
-		const foundCat = await Category.find({name: req.body.category.name});
-		goalDbEntry.category = foundCat[0];
-
-		goalDbEntry.date = req.body.date;
-
-		console.log(goalDbEntry, "<<<<< goalDbEntry after all 3 fields have been defined <<<<<");
+		goalDbEntry.name = req.body.name;
+		goalDbEntry.percent = req.body.percent;
+		goalDbEntry.benchmark = req.body.benchmark;
+		
+		console.log(goalDbEntry, "<<<<< goalDbEntry after all fields have been defined <<<<<");
 
 		const createdGoal = await goal.create(goalDbEntry);
 		console.log(createdGoal, "<<<< createdGoal");

@@ -1,7 +1,7 @@
 const mongooes = require('mongoose');
 
 const goalSchema = mongoose.Schema({
-	percentage: {
+	percent: {
 		type: Number,
 		required: true,
 	},
@@ -9,7 +9,7 @@ const goalSchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	goalAmount: {
+	benchmark: {
 		type: Number,
 	}
 })
