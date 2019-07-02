@@ -1,4 +1,4 @@
-const mongooes = require('mongoose');
+const mongoose = require('mongoose');
 
 const goalSchema = mongoose.Schema({
 	percent: {

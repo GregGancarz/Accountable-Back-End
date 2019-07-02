@@ -1,7 +1,7 @@
 const mongoose 	= require('mongoose');
 const Category 	= require('./category');
 const Expense 	= require('./expense');
-const Goal = require('./goal')l
+const Goal = require('./goal');
 
 const userSchema = new mongoose.Schema({
 	email: {

@@ -10,7 +10,7 @@ router.post('/user/:id', async (req, res, next) => {
 		goalDbEntry.name = req.body.name;
 		goalDbEntry.percent = req.body.percent;
 		goalDbEntry.benchmark = req.body.benchmark;
-		
+
 		console.log(goalDbEntry, "<<<<< goalDbEntry after all fields have been defined <<<<<");
 
 		const createdGoal = await goal.create(goalDbEntry);
@@ -28,3 +28,7 @@ router.post('/user/:id', async (req, res, next) => {
 		next(err);
 	}
 })
+
+
+
+module.exports = router;

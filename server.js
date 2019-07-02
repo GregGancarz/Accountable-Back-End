@@ -21,13 +21,13 @@ const corsOptions = {
 	origin: process.env.FRONTEND_URL,
 	credentials: true,
 	optionsSuccessesStatus: 200
-	// was spelled 'optionsSuccesseesStatus' so change back if you get an error.
 }
 app.use(cors(corsOptions));
 
 const authController     = require('./controllers/authController');
 const categoryController = require('./controllers/categoryController');
 const expenseController = require('./controllers/expenseController');
+const goalController = require('./controllers/goalController');
 
 app.use('/auth', authController);
 app.use('/category', categoryController);
