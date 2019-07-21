@@ -17,11 +17,7 @@ router.post('/user/:id', async (req, res, next) => {
 
 		expenseDbEntry.date = req.body.date;
 
-		console.log(expenseDbEntry, "<<<<< expenseDbEntry after all 3 fields have been defined <<<<<");
-
 		const createdExpense = await Expense.create(expenseDbEntry);
-		console.log(createdExpense, "<<<< createdExpense");
-
 		const foundUser = await User.findById({_id: req.params.id});
 
 		foundUser.expenses.push(createdExpense);
@@ -52,11 +48,6 @@ router.get('/user/:id', async (req, res, next) => {
 
 
 
-
-
-
-		console.log("\n\nhere is foundUser")
-		console.log(foundUser);
 		res.json({
 			status:200,
 			data: foundUser.expenses,
@@ -67,8 +58,29 @@ router.get('/user/:id', async (req, res, next) => {
 });
 
 
+// GET USER's expenses by category query
+router.get('/user/:id/:query', async (req, res, next) => {
+	console.log("--Expense list retrieval has been initiated--");
+	try {
+		foundUser = await User.findById({_id: req.params.id})
+			.populate({
+				path: 'expenses',
+				populate: {
+					path: 'category'
+				}
+			})
+
+		res.json({
+			status:200,
+			data: foundUser.expenses,
+		});
+	} catch(err) {
+		next(err);
+	}
+});
 
 
+// find lone expense. For Postman and diagnosis. Not currently available to users.
 router.get('/expense/:id', async (req, res, next) => {
 	console.log("--Lone expense retrieval has been initiated--");
 	try {
@@ -89,7 +101,6 @@ router.put('/expense/:id', async (req, res, next) => {
 	console.log("--Expense update has been initiated--");
 	try {
 		const updatedExpense = await Expense.findByIdAndUpdate(req.params.id, req.body, {new: true});
-		console.log(req.body, "<<== req.body");
 		res.json({
 			status: 200,
 			data: updatedExpense,

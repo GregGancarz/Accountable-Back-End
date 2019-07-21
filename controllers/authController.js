@@ -17,9 +17,7 @@ const nodemailer = require('nodemailer')
 router.post('/register', async (req, res, next) => {
 	console.log('--Registration has been initiated--');
 	const userDbEntry = {};
-	console.log(req.body, "<<<  req.body  <<<");
 	const password = req.body.password;
-	console.log(password, "<<<<<  password  <<<<<");
 	const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 	userDbEntry.email = req.body.email;
 	userDbEntry.password = passwordHash

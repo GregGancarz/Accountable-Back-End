@@ -13,10 +13,7 @@ router.post('/user/:id', async (req, res, next) => {
 	try {
 		const foundUser = await User.findById({_id: req.params.id});
 		const catName = req.body
-		console.log("we are creating a category, here is req.body");
-		console.log(req.body);
 		const createdCat = await Category.create(req.body);
-		console.log(createdCat, "<<<< The newly createdCat");
 		for(let i = 0; i < createdCat.length; i++ ) {
 			foundUser.categories.push(createdCat[i])
 		};
@@ -42,8 +39,6 @@ router.get('/user/:id', async (req, res, next) => {
 			status:200,
 			data: foundUser.categories,
 		});
-		console.log(foundUser.categories)
-		console.log("^^^  foundUser's cats  ^^^");
 	} catch(err) {
 		next(err);
 	}
@@ -80,5 +75,16 @@ router.put('/cat/:id', async (req, res, next) => {
 		next(err);
 	}
 });
+
+// DELETE CATEGORY //
+// router.delete('/cat/:id', async (req, res, next) => {
+// 	console.log("--Category deletion has been initiated--");
+// 	try {
+
+// 		// deletion of category. Update posted expenses with replaced category before hand as well
+// 		// will have to do so in a separate route
+// 		const deletedCat = await Category.findById({_id: req.params.id});
+// 	}	
+// });
 
 module.exports = router;
